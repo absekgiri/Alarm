@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Strict Alarm</title>
+    <style>
+        body { text-align: center; font-family: sans-serif; padding: 20px; }
+        #mission-screen { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: #fff; z-index: 9999; padding: 20px; 
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Strict Alarm</h1>
+    <input type="time" id="alarmTime">
+    <button onclick="setAlarm()">Set Alarm</button>
+
+    <div id="mission-screen">
+        <h2>Math Mission: 2 + 2 = ?</h2>
+        <input type="number" id="answer">
+        <button onclick="checkAnswer()">SUBMIT</button>
+    </div>
+
+    <script>
+        let alarmTime = null;
+        const missionScreen = document.getElementById('mission-screen');
+
+        function setAlarm() {
+            alarmTime = document.getElementById('alarmTime').value;
+            alert("Alarm set for: " + alarmTime);
+        }
+
+        setInterval(() => {
+            let now = new Date();
+            let currentTime = now.getHours().toString().padStart(2, '0') + ":" + 
+                              now.getMinutes().toString().padStart(2, '0');
+            
+            if (alarmTime && currentTime === alarmTime) {
+                missionScreen.style.display = 'block';
+                // Yahan tum audio play kar sakte ho
+            }
+        }, 1000);
+
+        function checkAnswer() {
+            let ans = document.getElementById('answer').value;
+            if (ans == "4") {
+                missionScreen.style.display = 'none';
+                alarmTime = null; // Alarm band
+                alert("Sahi hai! Alarm band.");
+            } else {
+                alert("Galat! Phir se try karo.");
+            }
+        }
+    </script>
+</body>
+</html>
+
